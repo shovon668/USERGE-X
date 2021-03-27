@@ -271,7 +271,7 @@ async def uninvitedPmHandler(message: Message):
     if message.from_user.is_verified:
         return
     if message.from_user.id in pmCounter:
-        if pmCounter[message.from_user.id] > 3:
+        if pmCounter[message.from_user.id] > 2:
             del pmCounter[message.from_user.id]
             # await message.reply(blocked_message)
             report_img_ = await reported_user_image(message.from_user.first_name)
@@ -286,7 +286,7 @@ async def uninvitedPmHandler(message: Message):
         else:
             pmCounter[message.from_user.id] += 1
             await message.reply(
-                f"You have {pmCounter[message.from_user.id]} out of 4 **Warnings**\n"
+                f"You have {pmCounter[message.from_user.id]} out of 3 **Warnings**\n"
                 "Please wait until you get approved to pm !",
                 del_in=5,
             )
@@ -295,7 +295,6 @@ async def uninvitedPmHandler(message: Message):
         PMPERMIT_MSG[message.from_user.id] = (
             await message.reply(
                 noPmMessage.format_map(SafeDict(**user_dict))
-                + "\n`- Protected by USERGE-X`"
             )
         ).message_id
         await asyncio.sleep(1)
