@@ -201,7 +201,10 @@ My Master is : {owner_.flname}</b>
                 ]
             ]
         try:
-            await send_bot_media(message, start_msg, InlineKeyboardMarkup(btns))
+            if from_user.id in Config.OWNER_ID:
+                await send_bot_media(message, start_msg, InlineKeyboardMarkup(btns))
+            else:
+                pass
         except FloodWait as e:
             await asyncio.sleep(e.x + 10)
         except Exception as bpm_e:
